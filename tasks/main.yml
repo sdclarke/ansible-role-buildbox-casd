@@ -1,0 +1,74 @@
+---
+# Ensure that if certificate content is provided, the certificate directory is also defined
+- name: validate configuration
+  fail:
+    msg: key/certificate content is provided but certificate directory is not defined
+  when: not casd_proxy_certdir and vars[item]
+  with_items:
+    - casd_proxy_cas_server_cert
+    - casd_proxy_cas_client_cert
+    - casd_proxy_cas_client_key
+    - casd_proxy_ac_server_cert
+    - casd_proxy_ac_client_cert
+    - casd_proxy_ac_client_key
+    - casd_proxy_asset_server_cert
+    - casd_proxy_asset_client_cert
+    - casd_proxy_asset_client_key
+    - casd_proxy_execution_server_cert
+    - casd_proxy_execution_client_cert
+    - casd_proxy_execution_client_key
+
+- name: create local cache
+  file:
+    path: "{{ casd_cache }}"
+    state: directory
+
+- name: create certificate directory
+  file:
+    path: "{{ casd_proxy_certdir }}"
+    state: directory
+  when: casd_proxy_certdir
+
+- name: copy certificates over
+  copy:
+    dest: "{{ casd_proxy_certdir }}/{{ item.filename }}"
+    content: "{{ item.content }}"
+    mode: "600"
+  with_items:
+    - { filename: "cas_server.crt", content: "{{ casd_proxy_cas_server_cert }}" }
+    - { filename: "cas_client.crt", content: "{{ casd_proxy_cas_client_cert }}" }
+    - { filename: "cas_client.key", content: "{{ casd_proxy_cas_client_key }}" }
+    - { filename: "ac_server.crt", content: "{{ casd_proxy_ac_server_cert }}" }
+    - { filename: "ac_client.crt", content: "{{ casd_proxy_ac_client_cert }}" }
+    - { filename: "ac_client.key", content: "{{ casd_proxy_ac_client_key }}" }
+    - { filename: "asset_server.crt", content: "{{ casd_proxy_asset_server_cert }}" }
+    - { filename: "asset_client.crt", content: "{{ casd_proxy_asset_client_cert }}" }
+    - { filename: "asset_client.key", content: "{{ casd_proxy_asset_client_key }}" }
+    - { filename: "execution_server.crt", content: "{{ casd_proxy_execution_server_cert }}" }
+    - { filename: "execution_client.crt", content: "{{ casd_proxy_execution_client_cert }}" }
+    - { filename: "execution_client.key", content: "{{ casd_proxy_execution_client_key }}" }
+  when: casd_proxy_certdir
+
+- name: create network for buildbox-casd
+  docker_network:
+    name: "{{ casd_network }}"
+    connected: "{{ [] if casd_bind_path else casd_network_connected_containers }}"
+    appends: yes
+
+- name: bring up buildbox-casd
+  docker_container:
+    name: "{{ casd_container }}"
+    image: "{{ casd_image }}"
+    networks:
+      - name: "{{ casd_network }}"
+    state: started
+    restart_policy: unless-stopped
+    exposed_ports: "{{ [] if casd_bind_path else [ casd_port ] }}"
+    published_ports: "{{ [] if casd_bind_path else casd_publish_ports }}"
+    command: "{{ casd_cmd }}"
+    volumes: "{{ casd_mounts }}"
+    labels: "{{ casd_labels }}"
+    comparisons:
+      networks: strict
+      published_ports: strict
+      volumes: strict

@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Scott Clarke
+  description: Deploy buildbox-casd in a docker container
+  company: Codethink Ltd.
+
+  license: MIT
+
+  min_ansible_version: 2.1
+
+  galaxy_tags:
+    - buildbox-casd
+    - buildbox
+    - cas
+    - reapi
+
+dependencies: []
