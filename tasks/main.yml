@@ -1,7 +1,7 @@
 ---
 # Ensure that if certificate content is provided, the certificate directory is also defined
-- name: validate configuration
-  fail:
+- name: Validate configuration
+  ansible.builtin.fail:
     msg: key/certificate content is provided but certificate directory is not defined
   when: not casd_proxy_certdir and vars[item]
   with_items:
@@ -18,19 +18,21 @@
     - casd_proxy_execution_client_cert
     - casd_proxy_execution_client_key
 
-- name: create local cache
-  file:
+- name: Create local cache
+  ansible.builtin.file:
     path: "{{ casd_cache }}"
     state: directory
+    mode: "600"
 
-- name: create certificate directory
-  file:
+- name: Create certificate directory
+  ansible.builtin.file:
     path: "{{ casd_proxy_certdir }}"
     state: directory
+    mode: "600"
   when: casd_proxy_certdir
 
-- name: copy certificates over
-  copy:
+- name: Copy certificates over
+  ansible.builtin.copy:
     dest: "{{ casd_proxy_certdir }}/{{ item.filename }}"
     content: "{{ item.content }}"
     mode: "600"
@@ -49,21 +51,21 @@
     - { filename: "execution_client.key", content: "{{ casd_proxy_execution_client_key }}" }
   when: casd_proxy_certdir
 
-- name: create network for buildbox-casd
-  docker_network:
+- name: Create network for buildbox-casd
+  community.docker.docker_network:
     name: "{{ casd_network }}"
     connected: "{{ [] if casd_bind_path else casd_network_connected_containers }}"
     appends: yes
 
-- name: bring up buildbox-casd
-  docker_container:
+- name: Bring up buildbox-casd
+  community.docker.docker_container:
     name: "{{ casd_container }}"
     image: "{{ casd_image }}"
     networks:
       - name: "{{ casd_network }}"
     state: started
     restart_policy: unless-stopped
-    exposed_ports: "{{ [] if casd_bind_path else [ casd_port ] }}"
+    exposed_ports: "{{ [] if casd_bind_path else [casd_port] }}"
     published_ports: "{{ [] if casd_bind_path else casd_publish_ports }}"
     command: "{{ casd_cmd }}"
     volumes: "{{ casd_mounts }}"

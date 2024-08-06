@@ -45,7 +45,7 @@ casd_proxy_cas_url_arg: "{% if casd_proxy_cas_url %}--cas-remote {{ casd_proxy_c
 casd_proxy_cas_server_cert_arg: "{% if casd_proxy_cas_server_cert %}--cas-server-cert {{ casd_certs_mnt }}/cas_server.crt{% endif %}"
 casd_proxy_cas_client_cert_arg: "{% if casd_proxy_cas_client_cert %}--cas-client-cert {{ casd_certs_mnt }}/cas_client.crt{% endif %}"
 casd_proxy_cas_client_key_arg: "{% if casd_proxy_cas_client_key %}--cas-client-key {{ casd_certs_mnt }}/cas_client.key{% endif %}"
-casd_proxy_cas_args: "{{casd_proxy_cas_url_arg}} {{casd_proxy_cas_server_cert_arg}} {{casd_proxy_cas_client_cert_arg}} {{casd_proxy_cas_client_key_arg}}"
+casd_proxy_cas_args: "{{ casd_proxy_cas_url_arg }} {{ casd_proxy_cas_server_cert_arg }} {{ casd_proxy_cas_client_cert_arg }} {{ casd_proxy_cas_client_key_arg }}"
 
 # AC proxy configuration
 casd_proxy_ac_url: ""
@@ -56,7 +56,7 @@ casd_proxy_ac_url_arg: "{% if casd_proxy_ac_url %}--ac-remote {{ casd_proxy_ac_u
 casd_proxy_ac_server_cert_arg: "{% if casd_proxy_ac_server_cert %}--ac-server-cert {{ casd_certs_mnt }}/ac_server.crt{% endif %}"
 casd_proxy_ac_client_cert_arg: "{% if casd_proxy_ac_client_cert %}--ac-client-cert {{ casd_certs_mnt }}/ac_client.crt{% endif %}"
 casd_proxy_ac_client_key_arg: "{% if casd_proxy_ac_client_key %}--ac-client-key {{ casd_certs_mnt }}/ac_client.key{% endif %}"
-casd_proxy_ac_args: "{{casd_proxy_ac_url_arg}} {{casd_proxy_ac_server_cert_arg}} {{casd_proxy_ac_client_cert_arg}} {{casd_proxy_ac_client_key_arg}}"
+casd_proxy_ac_args: "{{ casd_proxy_ac_url_arg }} {{ casd_proxy_ac_server_cert_arg }} {{ casd_proxy_ac_client_cert_arg }} {{ casd_proxy_ac_client_key_arg }}"
 
 # Remote Asset proxy configuration
 casd_proxy_asset_url: ""
@@ -67,7 +67,7 @@ casd_proxy_asset_url_arg: "{% if casd_proxy_asset_url %}--ra-remote {{ casd_prox
 casd_proxy_asset_server_cert_arg: "{% if casd_proxy_asset_server_cert %}--ra-server-cert {{ casd_certs_mnt }}/asset_server.crt{% endif %}"
 casd_proxy_asset_client_cert_arg: "{% if casd_proxy_asset_client_cert %}--ra-client-cert {{ casd_certs_mnt }}/asset_client.crt{% endif %}"
 casd_proxy_asset_client_key_arg: "{% if casd_proxy_asset_client_key %}--ra-client-key {{ casd_certs_mnt }}/asset_client.key{% endif %}"
-casd_proxy_asset_args: "{{casd_proxy_asset_url_arg}} {{casd_proxy_asset_server_cert_arg}} {{casd_proxy_asset_client_cert_arg}} {{casd_proxy_asset_client_key_arg}}"
+casd_proxy_asset_args: "{{ casd_proxy_asset_url_arg }} {{ casd_proxy_asset_server_cert_arg }} {{ casd_proxy_asset_client_cert_arg }} {{ casd_proxy_asset_client_key_arg }}"
 
 # Execution proxy configuration
 casd_proxy_execution_url: ""
@@ -78,4 +78,4 @@ casd_proxy_execution_url_arg: "{% if casd_proxy_asset_url %}--exec-remote {{ cas
 casd_proxy_execution_server_cert_arg: "{% if casd_proxy_asset_server_cert %}--exec-server-cert {{ casd_certs_mnt }}/asset_server.crt{% endif %}"
 casd_proxy_execution_client_cert_arg: "{% if casd_proxy_asset_client_cert %}--exec-client-cert {{ casd_certs_mnt }}/asset_client.crt{% endif %}"
 casd_proxy_execution_client_key_arg: "{% if casd_proxy_asset_client_key %}--exec-client-key {{ casd_certs_mnt }}/asset_client.key{% endif %}"
-casd_proxy_execution_args: "{{casd_proxy_asset_url_arg}} {{casd_proxy_asset_server_cert_arg}} {{casd_proxy_asset_client_cert_arg}} {{casd_proxy_asset_client_key_arg}}"
+casd_proxy_execution_args: "{{ casd_proxy_asset_url_arg }} {{ casd_proxy_asset_server_cert_arg }} {{ casd_proxy_asset_client_cert_arg }} {{ casd_proxy_asset_client_key_arg }}"
