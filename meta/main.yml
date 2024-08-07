@@ -2,7 +2,7 @@ galaxy_info:
   role_name: buildbox_casd
   author: Scott Clarke
   description: Deploy buildbox-casd in a docker container
-  company: Codethink Ltd.
+  company: Codethink Limited
 
   license: MIT
 
