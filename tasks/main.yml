@@ -71,6 +71,4 @@
     volumes: "{{ casd_mounts }}"
     labels: "{{ casd_labels }}"
     comparisons:
-      networks: strict
-      published_ports: strict
-      volumes: strict
+      '*': strict
