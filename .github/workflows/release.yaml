@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install Ansible.
-        run: pip3 install ansible-core
+        run: apt update && apt install ansible-core
       - name: Start import on Ansible Galaxy
         run: >
           ansible-galaxy role import
