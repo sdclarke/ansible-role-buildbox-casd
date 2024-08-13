@@ -1,0 +1,20 @@
+---
+name: Check ansible
+on:
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install ansible-lint
+        run: pip3 install ansible-lint==24.7.*
+      - name: Install ansible docker collection
+        run: ansible-galaxy collection install 'community.docker<3.13'
+      - name: Run ansible-lint
+        run: ansible-lint .
