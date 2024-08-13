@@ -55,7 +55,7 @@
   community.docker.docker_network:
     name: "{{ casd_network }}"
     connected: "{{ [] if casd_bind_path else casd_network_connected_containers }}"
-    appends: yes
+    appends: true
 
 - name: Bring up buildbox-casd
   community.docker.docker_container:

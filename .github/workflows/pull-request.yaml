@@ -1,0 +1,12 @@
+---
+name: Check ansible
+on:
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: echo ${{ github.repository }} | cut -d/ -f1 | tr '[:lower:]' '[:upper:]'
